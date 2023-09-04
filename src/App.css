@@ -1,38 +1,101 @@
-.App {
-  text-align: center;
+body {
+    background-color: #e7e7e7;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container {
+    display: grid;
+    grid-template-columns: 2% [first-column] 18% [second-column] 20% [third-column] 20% [fourth-column] 20% [fifth-column] 18% [sixth-column] 2%;
+    grid-template-rows: 4% [first-row] 5% [second-row] 5% [third-row] 30% [fourth-row] 5% [fifth-row] 15% [sixth-row] 5% [seventh-row] 27% [eighth-row] 4%;
+    height: 100vh; /* Set the height to 100% of the viewport height */
+    width: 100vw; /* Set the width to 100% of the viewport width */
+    position: absolute; /* Position the container absolutely */
+    top: 0;
+    left: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.blank-space1 {
+    grid-column: first-column / sixth-column;
+    grid-row: first-row / second-row;
+    border: 2px solid black;
+    border-bottom: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.title {
+    grid-column: first-column / sixth-column;
+    grid-row: second-row / third-row;
+    border: 2px solid black;
+    border-bottom: none;
 }
 
-.App-link {
-  color: #61dafb;
+.search {
+    grid-column: first-column / sixth-column;
+    grid-row: third-row / fourth-row;
+    border: 2px solid black;
+    border-bottom: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.img {
+    grid-column: fourth-column / sixth-column;
+    grid-row: third-row / fourth-row;
+    width: 99%;
+    height: 100%;
+    object-fit: cover;
+    border: 2px solid black;
+    border-bottom: none;
+}
+
+.blank-space2 {
+    grid-column: first-column / sixth-column;
+    grid-row: fourth-row / fifth-row;
+    border: 2px solid black;
+    border-bottom: none;
+}
+.container2 {
+    grid-column: first-column / sixth-column;
+    grid-row: fifth-row / sixth-row;
+    display: grid;
+    border: 2px solid black;
+    border-bottom: none;
+    grid-template-columns: [cont2-first-col] 33.33% [cont2-second-col] 33.33% [cont2-third-col] 33.33%;
+}
+.signup {
+    grid-column: cont2-first-col / cont2-second-col;
+}
+
+.login {
+    grid-column: cont2-second-col / cont2-third-col;
+    border-left: 2px solid black;
+
+}
+
+.logout {
+    grid-column: cont2-third-col;
+    border-left: 2px solid black;
+
+}
+
+.blank-space3 {
+    grid-column: first-column / sixth-column;
+    grid-row: sixth-row/ seventh-row;
+    border: 2px solid black;
+    border-bottom: none;
+}
+.container3 {
+    grid-column: first-column / sixth-column;
+    grid-row: seventh-row / eighth-row;
+    border: 2px solid black;
+    display: grid;
+    grid-template-columns: [cont3-first-col] 50% [cont3-second-col] 50%;
+}
+.want-to-read {
+    grid-column: cont3-first-col;
+}
+
+.read {
+    grid-column: cont3-second-col;
+    border-left: 2px solid black;
 }
