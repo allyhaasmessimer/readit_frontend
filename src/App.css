@@ -3,16 +3,16 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
-.container {
+.container1 {
     display: grid;
     grid-template-columns: 2% [first-column] 18% [second-column] 20% [third-column] 20% [fourth-column] 20% [fifth-column] 18% [sixth-column] 2%;
     grid-template-rows: 4% [first-row] 5% [second-row] 5% [third-row] 30% [fourth-row] 5% [fifth-row] 15% [sixth-row] 5% [seventh-row] 27% [eighth-row] 4%;
-    height: 100vh; /* Set the height to 100% of the viewport height */
-    width: 100vw; /* Set the width to 100% of the viewport width */
-    position: absolute; /* Position the container absolutely */
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
     top: 0;
     left: 0;
 }
@@ -24,11 +24,28 @@ body {
     border-bottom: none;
 }
 
-.title {
+.title-container {
     grid-column: first-column / sixth-column;
     grid-row: second-row / third-row;
     border: 2px solid black;
     border-bottom: none;
+    display: flex; /* Use flexbox to align items horizontally */
+    align-items: center; /* Vertically center items */
+}
+
+.logo {
+    display: flex; /* Create a nested flex container */
+    align-items: center; /* Vertically center items */
+    margin-right: 2px; /* Add spacing between the logo and title */
+}
+
+.logo img {
+    width: 32px; /* Adjust the width of the logo */
+}
+
+.title {
+    margin: 0;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
 .search {
@@ -36,6 +53,50 @@ body {
     grid-row: third-row / fourth-row;
     border: 2px solid black;
     border-bottom: none;
+    max-height: 300px; /* Adjust the desired height */
+    overflow-y: auto;
+    max-width: 61%;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    padding-left: 10px;
+}
+
+.search-title {
+    text-align: center;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    font-size: 20px;
+}
+
+button {
+    background-color: #81917d; /* Set a background color */
+    color: #fff; /* Set text color */
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    color: black;
+    height: 32px;
+}
+
+button:hover {
+    background-color: #c4d338;
+    border: 2px solid #81917d;
+    color: #81917d
+}
+.input-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 60%;
+    width: 80%; /* Ensure the container takes up the full height */
+}
+.input-box {
+    width: 80%; /* Adjust the width as needed */
+    padding: 10px;
+    max-width: 300px;
+    height: 10px;
+    padding: 10px;
+    font-size: 16px; /* Adjust the font size as needed */
 }
 
 .img {
@@ -69,13 +130,11 @@ body {
 .login {
     grid-column: cont2-second-col / cont2-third-col;
     border-left: 2px solid black;
-
 }
 
 .logout {
     grid-column: cont2-third-col;
     border-left: 2px solid black;
-
 }
 
 .blank-space3 {
@@ -84,6 +143,7 @@ body {
     border: 2px solid black;
     border-bottom: none;
 }
+
 .container3 {
     grid-column: first-column / sixth-column;
     grid-row: seventh-row / eighth-row;
@@ -91,6 +151,7 @@ body {
     display: grid;
     grid-template-columns: [cont3-first-col] 50% [cont3-second-col] 50%;
 }
+
 .want-to-read {
     grid-column: cont3-first-col;
 }
