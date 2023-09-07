@@ -1,0 +1,50 @@
+.search {
+    grid-column: first-column / sixth-column;
+    grid-row: third-row / fourth-row;
+    border: 2px solid black;
+    border-bottom: none;
+    max-width: 61%;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    text-align: center;
+
+}
+
+.search-title {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+button {
+    background-color: #81917d;
+    color: #fff;
+    cursor: pointer;
+    color: black;
+    height: 32px;
+}
+
+button:hover {
+    background-color: #c4d338;
+    border: 2px solid #81917d;
+    color: #81917d;
+    font-weight: bolder;
+}
+.input-container {
+    margin-bottom: 2px;
+}
+.input-box {
+    height: 27px;
+    text-align: center;
+}
+
+.search-results-container {
+    max-height: 152px;
+    overflow-y: auto;
+    text-align: left;
+
+}
+
+.search-results {
+    margin-left: 5px;
+}
+
+

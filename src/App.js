@@ -1,6 +1,8 @@
-import "./App.css";
+import "./css/App.css";
+import "./css/searchApi.css";
 import React, { useState, useEffect } from "react";
 import SearchComponent from "./website/searchApi";
+import SignupComponent from "./website/signup";
 
 function App() {
     return (
@@ -22,7 +24,9 @@ function App() {
             />
             <div className="blank-space2"></div>
             <div className="container2">
-                <div className="signup">SIGNUP</div>
+                <div className="signup">
+                <SignupComponent />
+                </div>
                 <div className="login">LOGIN</div>
                 <div className="logout">LOGOUT</div>
             </div>

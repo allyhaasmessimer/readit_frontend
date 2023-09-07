@@ -48,57 +48,6 @@ body {
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
-.search {
-    grid-column: first-column / sixth-column;
-    grid-row: third-row / fourth-row;
-    border: 2px solid black;
-    border-bottom: none;
-    max-height: 300px; /* Adjust the desired height */
-    overflow-y: auto;
-    max-width: 61%;
-    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-    padding-left: 10px;
-}
-
-.search-title {
-    text-align: center;
-    margin-bottom: 2px;
-    margin-top: 2px;
-    font-size: 20px;
-}
-
-button {
-    background-color: #81917d; /* Set a background color */
-    color: #fff; /* Set text color */
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 4px;
-    color: black;
-    height: 32px;
-}
-
-button:hover {
-    background-color: #c4d338;
-    border: 2px solid #81917d;
-    color: #81917d
-}
-.input-container {
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    height: 60%;
-    width: 80%; /* Ensure the container takes up the full height */
-}
-.input-box {
-    width: 80%; /* Adjust the width as needed */
-    padding: 10px;
-    max-width: 300px;
-    height: 10px;
-    padding: 10px;
-    font-size: 16px; /* Adjust the font size as needed */
-}
-
 .img {
     grid-column: fourth-column / sixth-column;
     grid-row: third-row / fourth-row;
