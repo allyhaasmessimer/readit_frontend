@@ -6,7 +6,7 @@
     max-width: 61%;
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
     text-align: center;
-
+    overflow: hidden;
 }
 
 .search-title {
@@ -46,5 +46,3 @@ button:hover {
 .search-results {
     margin-left: 5px;
 }
-
-
