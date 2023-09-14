@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import "../css/searchApi.css";
 const apiUrl = "https://readit1-1f9246305140.herokuapp.com/search/";
 
 function SearchComponent() {
@@ -42,7 +42,6 @@ function SearchComponent() {
                 return response.json();
             })
             .then((data) => {
-
                 console.log("Response Data:", data);
                 setSearchResults(data);
             })

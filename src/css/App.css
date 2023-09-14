@@ -29,19 +29,19 @@ body {
     grid-row: second-row / third-row;
     border: 2px solid black;
     border-bottom: none;
-    display: flex; /* Use flexbox to align items horizontally */
+    display: flex; 
     align-items: center;
     overflow: hidden;
 }
 
 .logo {
-    display: flex; /* Create a nested flex container */
-    align-items: center; /* Vertically center items */
-    margin-right: 2px; /* Add spacing between the logo and title */
+    display: flex;
+    align-items: center;
+    margin-right: 2px;
 }
 
 .logo img {
-    width: 32px; /* Adjust the width of the logo */
+    width: 32px;
 }
 
 .title {
@@ -73,7 +73,6 @@ body {
     border-bottom: none;
     grid-template-columns: [cont2-first-col] 33.33% [cont2-second-col] 33.33% [cont2-third-col] 33.33%;
     grid-template-rows: 100% [row1];
-
 }
 
 .login {
