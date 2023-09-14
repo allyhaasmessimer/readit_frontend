@@ -8,28 +8,49 @@ import LoginComponent from "./website/login";
 import LogoutComponent from "./website/logout";
 
 function App() {
-    const [token, setToken] = useState(false);
+    const [token, setToken] = useState(null);
     const [userName, setUserName] = useState("");
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const storedToken = localStorage.getItem("yourToken");
         if (storedToken) {
             setToken(storedToken);
+            fetchUsername(storedToken);
         }
     }, []);
 
+    const fetchUsername = (token) => {
+        fetch("https://readit1-1f9246305140.herokuapp.com/username/", {
+            method: "GET",
+            headers: {
+                Authorization: `Token ${token}`,
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setUserName(data.username);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error fetching username:", error);
+                setLoading(false);
+            });
+    };
+
     const handleLogout = () => {
-        setToken(false);
+        setToken(null);
+        setUserName("");
     };
 
     const handleLogin = (token, username) => {
-        setToken(true);
         setToken(token);
+        setLoading(true);
         setUserName(username);
     };
 
     const renderGreeting = () => {
-        if (token) {
+        if (token && userName && !loading) {
             return <div className="greeting">hi, {userName}</div>;
         }
         return null;
