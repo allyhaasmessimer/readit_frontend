@@ -5,57 +5,8 @@ import React, { useState, useEffect } from "react";
 import SearchComponent from "./website/searchApi";
 import SignupComponent from "./website/signup";
 import LoginComponent from "./website/login";
-import LogoutComponent from "./website/logout";
 
 function App() {
-    const [token, setToken] = useState(null);
-    const [userName, setUserName] = useState("");
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const storedToken = localStorage.getItem("yourToken");
-        if (storedToken) {
-            setToken(storedToken);
-            fetchUsername(storedToken);
-        }
-    }, []);
-
-    const fetchUsername = (token) => {
-        fetch("https://readit1-1f9246305140.herokuapp.com/username/", {
-            method: "GET",
-            headers: {
-                Authorization: `Token ${token}`,
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                setUserName(data.username);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error("Error fetching username:", error);
-                setLoading(false);
-            });
-    };
-
-    const handleLogout = () => {
-        setToken(null);
-        setUserName("");
-    };
-
-    const handleLogin = (token, username) => {
-        setToken(token);
-        setLoading(true);
-        setUserName(username);
-    };
-
-    const renderGreeting = () => {
-        if (token && userName && !loading) {
-            return <div className="greeting">hi, {userName}</div>;
-        }
-        return null;
-    };
-
     return (
         <section className="container1">
             <div className="blank-space1"></div>
@@ -64,7 +15,7 @@ function App() {
                     <img src="/logo.jpg" alt="logo" />
                 </div>
                 <h1 className="title">READIT</h1>
-                <div className="greeting">{renderGreeting()}</div>
+                <div className="greeting"></div>
             </div>
             <div className="search">
                 <SearchComponent />
@@ -80,11 +31,9 @@ function App() {
                     <SignupComponent />
                 </div>
                 <div className="login">
-                    <LoginComponent onLogin={handleLogin} />
+                    <LoginComponent />
                 </div>
-                <div className="logout">
-                    <LogoutComponent onLogout={handleLogout} />
-                </div>
+                <div className="logout"></div>
             </div>
             <div className="blank-space3"></div>
             <div className="container3">
