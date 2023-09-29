@@ -43,11 +43,9 @@ function LoginForm({ onLogin }) {
                         onChange={handleInputChange}
                     />
                 </div>
-                <button className="login-button">Login</button>
+                <button className="login-button">LOGIN</button>
             </form>
         </div>
     );
 }
 export default LoginForm;
-
-

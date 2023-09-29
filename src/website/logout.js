@@ -23,8 +23,12 @@ function LogoutComponent() {
 
     return (
         <>
-            <h3 className="title-logout">LOGOUT</h3>
-            <button className="logout-button" onClick={handleLogout}>Logout</button>
+            <div className="logout-container">
+                <h3 className="title-logout">LOGOUT</h3>
+                <button className="logout-button" onClick={handleLogout}>
+                    LOGOUT
+                </button>
+            </div>
             {logoutStatus && <p>{logoutStatus}</p>}
         </>
     );
