@@ -1,21 +1,65 @@
 import "./css/App.css";
 import "./css/searchApi.css";
 
-import React, { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
+
 import SearchComponent from "./website/searchApi";
 import SignupComponent from "./website/signup";
 import LoginComponent from "./website/login";
+import LogoutCompontent from "./website/logout";
+import getUser from "./website/getUser";
 
 function App() {
+    const [currentUser, setCurrentUser] = useState(null);
+    const [token, setToken] = useState(
+        localStorage.getItem("authToken") || null
+    );
+
+    const [isLoadingUser, setIsLoadingUser] = useState(true);
+
+    const fetchUserData = useCallback(() => {
+        if (token) {
+            getUser(token)
+                .then((userData) => {
+                    setCurrentUser(userData);
+                    setIsLoadingUser(false);
+                })
+                .catch((error) => {
+                    setIsLoadingUser(false);
+                    setCurrentUser(null);
+                });
+        } else {
+            setIsLoadingUser(false);
+            setCurrentUser(null);
+        }
+    }, [token]);
+
+    useEffect(() => {
+        fetchUserData();
+    }, [fetchUserData]);
+
     return (
         <section className="container1">
             <div className="blank-space1"></div>
+
             <div className="title-container">
                 <div className="logo">
                     <img src="/logo.jpg" alt="logo" />
                 </div>
                 <h1 className="title">READIT</h1>
-                <div className="greeting"></div>
+                <div className="greeting">
+                    {isLoadingUser ? (
+                        <p>Loading user data...</p>
+                    ) : currentUser ? (
+                        <>
+                            <p style={{ textTransform: "uppercase" }}>
+                                HI, {currentUser.username}
+                            </p>
+                        </>
+                    ) : (
+                        <p>WELCOME, GUEST</p>
+                    )}
+                </div>
             </div>
             <div className="search">
                 <SearchComponent />
@@ -33,7 +77,9 @@ function App() {
                 <div className="login">
                     <LoginComponent />
                 </div>
-                <div className="logout"></div>
+                <div className="logout">
+                    <LogoutCompontent />
+                </div>
             </div>
             <div className="blank-space3"></div>
             <div className="container3">

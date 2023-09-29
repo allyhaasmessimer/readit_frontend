@@ -39,6 +39,11 @@ body {
     align-items: center;
     margin-right: 2px;
 }
+.greeting {
+    display: flex;
+    margin-left: auto;
+    padding-right: 2px;
+}
 
 .logo img {
     width: 32px;
@@ -48,11 +53,7 @@ body {
     margin: 0;
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
-.greeting {
-    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-    display: inline; /* Display as inline element to make it one line */
-    margin-left: 65%; /* Push the greeting to the left */
-}
+
 .img {
     grid-column: fourth-column / sixth-column;
     grid-row: third-row / fourth-row;
