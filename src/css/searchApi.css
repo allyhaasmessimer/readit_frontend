@@ -15,8 +15,8 @@
 }
 
 button {
-    background-color: #81917d;
-    color: #fff;
+    background-color: #fbeee0;
+    border: 2px solid #422800;
     cursor: pointer;
     color: black;
     height: 32px;

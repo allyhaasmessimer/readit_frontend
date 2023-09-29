@@ -8,12 +8,15 @@ import SignupComponent from "./website/signup";
 import LoginComponent from "./website/login";
 import LogoutCompontent from "./website/logout";
 import getUser from "./website/getUser";
+import ReadList from "./website/ReadList";
 
 function App() {
     const [currentUser, setCurrentUser] = useState(null);
     const [token, setToken] = useState(
         localStorage.getItem("authToken") || null
     );
+    const [readList, setReadList] = useState(null);
+    const [isLoadingReadList, setIsLoadingReadList] = useState(true);
 
     const [isLoadingUser, setIsLoadingUser] = useState(true);
 
@@ -31,6 +34,25 @@ function App() {
         } else {
             setIsLoadingUser(false);
             setCurrentUser(null);
+        }
+    }, [token]);
+
+    useEffect(() => {
+        if (token) {
+            ReadList(token)
+                .then((readListData) => {
+                    console.log("Response Data:", readListData);
+                    setReadList(readListData);
+                    setIsLoadingReadList(false);
+                })
+                .catch((error) => {
+                    console.error("Error fetching read list data:", error);
+                    setIsLoadingReadList(false);
+                    setReadList(null);
+                });
+        } else {
+            setIsLoadingReadList(false);
+            setReadList(null);
         }
     }, [token]);
 
@@ -83,8 +105,39 @@ function App() {
             </div>
             <div className="blank-space3"></div>
             <div className="container3">
-                <div className="want-to-read">want to read</div>
-                <div className="read">READ</div>
+                <div className="want-to-read">
+                    want to read
+                    <div>
+                        {isLoadingReadList ? (
+                            <p>Loading read list data...</p>
+                        ) : readList &&
+                          Array.isArray(readList.books_want_to_read) ? (
+                            <div>
+                                {readList.books_want_to_read.map((item) => (
+                                    <div key={item.id}>{item.title}</div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p>No read list data available.</p>
+                        )}
+                    </div>
+                </div>
+                <div className="read">
+                    READ
+                    <div>
+                        {isLoadingReadList ? (
+                            <p>Loading read list data...</p>
+                        ) : readList && Array.isArray(readList.books_read) ? (
+                            <div>
+                                {readList.books_read.map((item) => (
+                                    <div key={item.id}>{item.title}</div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p>No read list data available.</p>
+                        )}
+                    </div>
+                </div>
             </div>
         </section>
     );
