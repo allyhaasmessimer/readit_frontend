@@ -65,9 +65,9 @@ body {
 
 .logout-container {
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center items horizontally */
-    justify-content: center; /* Center items vertically */
-    text-align: center; /* Ensure the container takes up the full height of its parent */
-    height: 12vh; /* Ensure the container takes up the full height of its parent */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 12vh; 
 }

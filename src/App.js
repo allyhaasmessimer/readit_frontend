@@ -60,6 +60,31 @@ function App() {
         fetchUserData();
     }, [fetchUserData]);
 
+    function deleteItem(token, itemId) {
+        return new Promise((resolve, reject) => {
+            const url = `https://readit1-1f9246305140.herokuapp.com/delete/${itemId}/`;
+            const headers = {
+                "Content-Type": "application/json",
+                Authorization: `Token ${token}`,
+            };
+            const requestOptions = {
+                method: "DELETE",
+                headers: headers,
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    resolve();
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+        });
+    }
+
     return (
         <section className="container1">
             <div className="blank-space1"></div>
@@ -106,32 +131,45 @@ function App() {
             <div className="blank-space3"></div>
             <div className="container3">
                 <div className="want-to-read">
-                    want to read
+                    <h3 className="title-want-to-read">WANT TO READ</h3>
                     <div>
-                        {isLoadingReadList ? (
-                            <p>Loading read list data...</p>
-                        ) : readList &&
-                          Array.isArray(readList.books_want_to_read) ? (
-                            <div>
-                                {readList.books_want_to_read.map((item) => (
-                                    <div key={item.id}>{item.title}</div>
-                                ))}
-                            </div>
-                        ) : (
-                            <p>No read list data available.</p>
-                        )}
+                        <ul>
+                            {isLoadingReadList ? (
+                                <p>Loading read list data...</p>
+                            ) : readList &&
+                              Array.isArray(readList.books_want_to_read) ? (
+                                <div>
+                                    {readList.books_want_to_read.map((item) => (
+                                        <li>
+                                            <div key={item.id}>
+                                                {item.title}
+                                            </div>
+                                        </li>
+                                    ))}
+                                </div>
+                            ) : (
+                                <p>No read list data available.</p>
+                            )}
+                        </ul>
                     </div>
                 </div>
                 <div className="read">
-                    READ
+                    <h3 className="title-read">READ</h3>
+
                     <div>
                         {isLoadingReadList ? (
                             <p>Loading read list data...</p>
                         ) : readList && Array.isArray(readList.books_read) ? (
                             <div>
-                                {readList.books_read.map((item) => (
-                                    <div key={item.id}>{item.title}</div>
-                                ))}
+                                <ul>
+                                    {readList.books_read.map((item) => (
+                                        <li>
+                                            <div key={item.id}>
+                                                {item.title}
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
                         ) : (
                             <p>No read list data available.</p>
