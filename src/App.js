@@ -56,7 +56,7 @@ function App() {
         fetchUserData();
     }, [fetchUserData]);
 
-    const deleteData = async (id) => {
+    const deleteWantToReadData = async (id) => {
         const token = localStorage.getItem("authToken");
         console.log(token)
         if (!token) {
@@ -68,6 +68,46 @@ function App() {
             const parsedToken = JSON.parse(token);
             const response = await fetch(
                 `https://readit1-1f9246305140.herokuapp.com/delete_want_to_read/${id}/`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Token ${parsedToken}`,
+                    },
+                }
+            );
+
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                const errorMessage = await response.text();
+                console.error(
+                    "DELETE request failed:",
+                    response.status,
+                    errorMessage
+                );
+                console.log("RESPONSE: " , response)
+            }
+        } catch (error) {
+            console.error(
+                "An error occurred while making the DELETE request:",
+                error
+            );
+        }
+    };
+
+    const deleteReadData = async (id) => {
+        const token = localStorage.getItem("authToken");
+        console.log(token)
+        if (!token) {
+            console.error("Token not found in local storage");
+            return;
+        }
+
+        try {
+            const parsedToken = JSON.parse(token);
+            const response = await fetch(
+                `https://readit1-1f9246305140.herokuapp.com/delete/${id}/`,
                 {
                     method: "DELETE",
                     headers: {
@@ -168,7 +208,7 @@ function App() {
                                                         <td>
                                                             <button
                                                                 onClick={() =>
-                                                                    deleteData(
+                                                                    deleteWantToReadData(
                                                                         item.id
                                                                     )
                                                                 }
@@ -231,7 +271,7 @@ function App() {
                                                     <td>
                                                         <button
                                                             onClick={() =>
-                                                                deleteData(
+                                                                deleteReadData(
                                                                     item.id
                                                                 )
                                                             }
