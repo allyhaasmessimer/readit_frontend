@@ -1,8 +1,6 @@
 import "./css/App.css";
 import "./css/searchApi.css";
-
 import { useCallback, useEffect, useState } from "react";
-
 import SearchComponent from "./website/searchApi";
 import SignupComponent from "./website/signup";
 import LoginComponent from "./website/login";
@@ -17,7 +15,6 @@ function App() {
     );
     const [readList, setReadList] = useState(null);
     const [isLoadingReadList, setIsLoadingReadList] = useState(true);
-
     const [isLoadingUser, setIsLoadingUser] = useState(true);
 
     const fetchUserData = useCallback(() => {
@@ -41,7 +38,6 @@ function App() {
         if (token) {
             ReadList(token)
                 .then((readListData) => {
-                    
                     setReadList(readListData);
                     setIsLoadingReadList(false);
                 })
@@ -98,9 +94,8 @@ function App() {
     };
 
     return (
-        <section className="container1">
+        <div className="container1">
             <div className="blank-space1"></div>
-
             <div className="title-container">
                 <div className="logo">
                     <img src="/logo.jpg" alt="logo" />
@@ -110,11 +105,9 @@ function App() {
                     {isLoadingUser ? (
                         <p>Loading user data...</p>
                     ) : currentUser ? (
-                        <>
-                            <p style={{ textTransform: "uppercase" }}>
-                                HI, {currentUser.username}
-                            </p>
-                        </>
+                        <p style={{ textTransform: "uppercase" }}>
+                            HI, {currentUser.username}
+                        </p>
                     ) : (
                         <p>WELCOME, GUEST</p>
                     )}
@@ -144,99 +137,131 @@ function App() {
             <div className="container3">
                 <div className="want-to-read">
                     <h3 className="title-want-to-read">WANT TO READ</h3>
-                    <div>
-                        {isLoadingReadList ? (
-                            <p>Loading want to read list data...</p>
-                        ) : readList ? (
-                            readList.books_want_to_read &&
-                            readList.books_want_to_read.length > 0 ? (
-                                <ul>
-                                    <div>
-                                        {readList.books_want_to_read.map(
-                                            (item) => (
-                                                <li key={item.id}>
-                                                    <div>
-                                                        {item.title}
-                                                        {item.id}
-                                                    </div>
-                                                    <button
-                                                        onClick={() =>
-                                                            deleteData(item.id)
-                                                        }
-                                                        style={{
-                                                            backgroundColor:
-                                                                "red",
-                                                            color: "white",
-                                                        }}
-                                                        className="btn btn-outline-danger"
-                                                    >
-                                                        Delete
-                                                    </button>
-                                                </li>
-                                            )
-                                        )}
-                                    </div>
-                                </ul>
-                            ) : (
-                                <p>
-                                    No books in your want to read list. Add
-                                    books to your list.
-                                </p>
-                            )
-                        ) : (
-                            <p>
-                                LOGIN OR SIGNUP TO START CREATING A WANT TO READ
-                                LIST
-                            </p>
-                        )}
+                    <div id="want-to-read-list">
+                        <table className="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>TITLE</th>
+                                    <th>ID</th>
+                                    <th>DELETE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {isLoadingReadList ? (
+                                    <tr>
+                                        <td colSpan="3">
+                                            Loading want to read list data...
+                                        </td>
+                                    </tr>
+                                ) : readList ? (
+                                    readList.books_want_to_read &&
+                                    readList.books_want_to_read.length > 0 ? (
+                                        <>
+                                            {readList.books_want_to_read.map(
+                                                (item) => (
+                                                    <tr key={item.id}>
+                                                        <td>{item.title}</td>
+                                                        <td>{item.id}</td>
+                                                        <td>
+                                                            <button
+                                                                onClick={() =>
+                                                                    deleteData(
+                                                                        item.id
+                                                                    )
+                                                                }
+                                                                className="delete-button"
+                                                            >
+                                                                DELETE
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            )}
+                                        </>
+                                    ) : (
+                                        <tr>
+                                            <td colSpan="3">
+                                                No books in your want to read
+                                                list. Add books to your list.
+                                            </td>
+                                        </tr>
+                                    )
+                                ) : (
+                                    <tr>
+                                        <td colSpan="3">
+                                            LOGIN OR SIGNUP TO START CREATING A
+                                            WANT TO READ LIST
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+
                 <div className="read">
                     <h3 className="title-read">READ</h3>
-
-                    <div>
-                        {isLoadingReadList ? (
-                            <p>Loading read list data...</p>
-                        ) : readList ? (
-                            readList.books_read &&
-                            readList.books_read.length > 0 ? (
-                                <ul>
-                                    <div>
-                                        {readList.books_read.map((item) => (
-                                            <li key={item.id}>
-                                                <div>
-                                                    {item.title}
-                                                    {item.id}
-                                                </div>
-                                                <button
-                                                    onClick={() =>
-                                                        deleteData(item.id)
-                                                    }
-                                                    style={{
-                                                        backgroundColor: "red",
-                                                        color: "white",
-                                                    }}
-                                                    className="btn btn-outline-danger"
-                                                >
-                                                    Delete
-                                                </button>
-                                            </li>
-                                        ))}
-                                    </div>
-                                </ul>
-                            ) : (
-                                <p>
-                                    No books in your read list. Add books to
-                                    your list.
-                                </p>
-                            )
-                        ) : (
-                            <p>LOGIN OR SIGNUP TO START CREATING A READ LIST</p>
-                        )}
+                    <div id="read-list">
+                        <table className="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>TITLE</th>
+                                    <th>ID</th>
+                                    <th>DELETE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {isLoadingReadList ? (
+                                    <tr>
+                                        <td colSpan="3">
+                                            Loading read list data...
+                                        </td>
+                                    </tr>
+                                ) : readList ? (
+                                    readList.books_read &&
+                                    readList.books_read.length > 0 ? (
+                                        <>
+                                            {readList.books_read.map((item) => (
+                                                <tr key={item.id}>
+                                                    <td>{item.title}</td>
+                                                    <td>{item.id}</td>
+                                                    <td>
+                                                        <button
+                                                            onClick={() =>
+                                                                deleteData(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                            className="delete-button"
+                                                        >
+                                                            DELETE
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </>
+                                    ) : (
+                                        <tr>
+                                            <td colSpan="3">
+                                                No books in your read list. Add
+                                                books to your list.
+                                            </td>
+                                        </tr>
+                                    )
+                                ) : (
+                                    <tr>
+                                        <td colSpan="3">
+                                            LOGIN OR SIGNUP TO START CREATING A
+                                            READ LIST
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     );
 }
 
