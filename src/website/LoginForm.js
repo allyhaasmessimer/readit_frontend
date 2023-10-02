@@ -27,7 +27,7 @@ function LoginForm({ onLogin }) {
                     <label htmlFor="username" className="form-label">USERNAME:</label>
                     <input
                         type="text"
-                        id="username"
+                        id="login_username"
                         name="username"
                         value={credentials.username}
                         onChange={handleInputChange}
@@ -37,7 +37,7 @@ function LoginForm({ onLogin }) {
                     <label htmlFor="password" className="form-label">PASSWORD:</label>
                     <input
                         type="password"
-                        id="password"
+                        id="login_password"
                         name="password"
                         value={credentials.password}
                         onChange={handleInputChange}

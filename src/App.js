@@ -41,7 +41,7 @@ function App() {
         if (token) {
             ReadList(token)
                 .then((readListData) => {
-                    console.log("Response Data:", readListData);
+                    
                     setReadList(readListData);
                     setIsLoadingReadList(false);
                 })
@@ -60,30 +60,42 @@ function App() {
         fetchUserData();
     }, [fetchUserData]);
 
-    function deleteItem(token, itemId) {
-        return new Promise((resolve, reject) => {
-            const url = `https://readit1-1f9246305140.herokuapp.com/delete/${itemId}/`;
-            const headers = {
-                "Content-Type": "application/json",
-                Authorization: `Token ${token}`,
-            };
-            const requestOptions = {
-                method: "DELETE",
-                headers: headers,
-            };
+    const deleteData = async (id) => {
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+            console.error("Token not found in local storage");
+            return;
+        }
 
-            fetch(url, requestOptions)
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-                    resolve();
-                })
-                .catch((error) => {
-                    reject(error);
-                });
-        });
-    }
+        try {
+            const response = await fetch(
+                `https://readit1-1f9246305140.herokuapp.com/delete_want_to_read/${id}/`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Token ${token}`,
+                    },
+                }
+            );
+
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                const errorMessage = await response.text(); // Extract the response body as text
+                console.error(
+                    "DELETE request failed:",
+                    response.status,
+                    errorMessage
+                );
+            }
+        } catch (error) {
+            console.error(
+                "An error occurred while making the DELETE request:",
+                error
+            );
+        }
+    };
 
     return (
         <section className="container1">
@@ -133,24 +145,50 @@ function App() {
                 <div className="want-to-read">
                     <h3 className="title-want-to-read">WANT TO READ</h3>
                     <div>
-                        <ul>
-                            {isLoadingReadList ? (
-                                <p>Loading read list data...</p>
-                            ) : readList &&
-                              Array.isArray(readList.books_want_to_read) ? (
-                                <div>
-                                    {readList.books_want_to_read.map((item) => (
-                                        <li>
-                                            <div key={item.id}>
-                                                {item.title}
-                                            </div>
-                                        </li>
-                                    ))}
-                                </div>
+                        {isLoadingReadList ? (
+                            <p>Loading want to read list data...</p>
+                        ) : readList ? (
+                            readList.books_want_to_read &&
+                            readList.books_want_to_read.length > 0 ? (
+                                <ul>
+                                    <div>
+                                        {readList.books_want_to_read.map(
+                                            (item) => (
+                                                <li key={item.id}>
+                                                    <div>
+                                                        {item.title}
+                                                        {item.id}
+                                                    </div>
+                                                    <button
+                                                        onClick={() =>
+                                                            deleteData(item.id)
+                                                        }
+                                                        style={{
+                                                            backgroundColor:
+                                                                "red",
+                                                            color: "white",
+                                                        }}
+                                                        className="btn btn-outline-danger"
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </li>
+                                            )
+                                        )}
+                                    </div>
+                                </ul>
                             ) : (
-                                <p>No read list data available.</p>
-                            )}
-                        </ul>
+                                <p>
+                                    No books in your want to read list. Add
+                                    books to your list.
+                                </p>
+                            )
+                        ) : (
+                            <p>
+                                LOGIN OR SIGNUP TO START CREATING A WANT TO READ
+                                LIST
+                            </p>
+                        )}
                     </div>
                 </div>
                 <div className="read">
@@ -159,20 +197,41 @@ function App() {
                     <div>
                         {isLoadingReadList ? (
                             <p>Loading read list data...</p>
-                        ) : readList && Array.isArray(readList.books_read) ? (
-                            <div>
+                        ) : readList ? (
+                            readList.books_read &&
+                            readList.books_read.length > 0 ? (
                                 <ul>
-                                    {readList.books_read.map((item) => (
-                                        <li>
-                                            <div key={item.id}>
-                                                {item.title}
-                                            </div>
-                                        </li>
-                                    ))}
+                                    <div>
+                                        {readList.books_read.map((item) => (
+                                            <li key={item.id}>
+                                                <div>
+                                                    {item.title}
+                                                    {item.id}
+                                                </div>
+                                                <button
+                                                    onClick={() =>
+                                                        deleteData(item.id)
+                                                    }
+                                                    style={{
+                                                        backgroundColor: "red",
+                                                        color: "white",
+                                                    }}
+                                                    className="btn btn-outline-danger"
+                                                >
+                                                    Delete
+                                                </button>
+                                            </li>
+                                        ))}
+                                    </div>
                                 </ul>
-                            </div>
+                            ) : (
+                                <p>
+                                    No books in your read list. Add books to
+                                    your list.
+                                </p>
+                            )
                         ) : (
-                            <p>No read list data available.</p>
+                            <p>LOGIN OR SIGNUP TO START CREATING A READ LIST</p>
                         )}
                     </div>
                 </div>
