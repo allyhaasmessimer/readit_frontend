@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../css/searchApi.css";
+
 const apiUrl = "https://readit1-1f9246305140.herokuapp.com/search/";
 
 function SearchComponent() {
@@ -7,6 +8,76 @@ function SearchComponent() {
     const [searchResults, setSearchResults] = useState([]);
     const [searchMessage, setSearchMessage] = useState("");
     const [searchPerformed, setSearchPerformed] = useState(false);
+
+    const addToReadList = (bookId) => {
+        const token = localStorage.getItem("authToken");
+        const parsedToken = JSON.parse(token);
+        if (!token) {
+            console.error("Token not found in local storage");
+            return;
+        }
+
+        const url = `https://readit1-1f9246305140.herokuapp.com/read/${bookId}/`;
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${parsedToken}`
+        };
+        const requestOptions = {
+            method: 'POST',
+            headers: headers,
+        };
+
+        fetch(url, requestOptions)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+
+            })
+            .then((data) => {
+                console.log("Added book to 'read' list:", data);
+                window.location.reload();
+
+            })
+            .catch((error) => {
+                console.error("Error adding book to 'read' list:", error);
+            });
+    };
+
+    const addToWantToReadList = (bookId) => {
+        const token = localStorage.getItem("authToken");
+        const parsedToken = JSON.parse(token);
+        if (!token) {
+            console.error("Token not found in local storage");
+            return;
+        }
+
+        const url = `https://readit1-1f9246305140.herokuapp.com/want_to_read/${bookId}/`;
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${parsedToken}`
+        };
+        const requestOptions = {
+            method: 'POST',
+            headers: headers,
+        };
+
+        fetch(url, requestOptions)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log("Added book to 'want to read' list:", data);
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.error("Error adding book to 'want to read' list:", error);
+            });
+    };
 
     useEffect(() => {
         if (searchResults.length === 0 && searchPerformed) {
@@ -81,6 +152,18 @@ function SearchComponent() {
                                 Description:{" "}
                                 {book.volumeInfo.description || "N/A"}
                             </p>
+                            <button
+                                onClick={() => addToReadList(book.id)}
+                                className="add-to-read-button"
+                            >
+                                Add to Read List
+                            </button>
+                            <button
+                                onClick={() => addToWantToReadList(book.id)}
+                                className="add-to-want-to-read-button"
+                            >
+                                Add to Want to Read List
+                            </button>
                         </div>
                     ))}
                 </div>
