@@ -58,19 +58,21 @@ function App() {
 
     const deleteData = async (id) => {
         const token = localStorage.getItem("authToken");
+        console.log(token)
         if (!token) {
             console.error("Token not found in local storage");
             return;
         }
 
         try {
+            const parsedToken = JSON.parse(token);
             const response = await fetch(
                 `https://readit1-1f9246305140.herokuapp.com/delete_want_to_read/${id}/`,
                 {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Token ${token}`,
+                        Authorization: `Token ${parsedToken}`,
                     },
                 }
             );
@@ -78,12 +80,13 @@ function App() {
             if (response.ok) {
                 window.location.reload();
             } else {
-                const errorMessage = await response.text(); // Extract the response body as text
+                const errorMessage = await response.text();
                 console.error(
                     "DELETE request failed:",
                     response.status,
                     errorMessage
                 );
+                console.log("RESPONSE: " , response)
             }
         } catch (error) {
             console.error(
