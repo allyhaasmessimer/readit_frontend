@@ -10,13 +10,10 @@ import ReadList from "./website/ReadList";
 
 function App() {
     const [currentUser, setCurrentUser] = useState(null);
-    const [token, setToken] = useState(
-        localStorage.getItem("authToken") || null
-    );
     const [readList, setReadList] = useState(null);
     const [isLoadingReadList, setIsLoadingReadList] = useState(true);
     const [isLoadingUser, setIsLoadingUser] = useState(true);
-
+    const token = localStorage.getItem("authToken");
     const fetchUserData = useCallback(() => {
         if (token) {
             getUser(token)
@@ -58,7 +55,7 @@ function App() {
 
     const deleteWantToReadData = async (id) => {
         const token = localStorage.getItem("authToken");
-        console.log(token)
+        console.log(token);
         if (!token) {
             console.error("Token not found in local storage");
             return;
@@ -86,7 +83,7 @@ function App() {
                     response.status,
                     errorMessage
                 );
-                console.log("RESPONSE: " , response)
+                console.log("RESPONSE: ", response);
             }
         } catch (error) {
             console.error(
@@ -98,7 +95,7 @@ function App() {
 
     const deleteReadData = async (id) => {
         const token = localStorage.getItem("authToken");
-        console.log(token)
+        console.log(token);
         if (!token) {
             console.error("Token not found in local storage");
             return;
@@ -126,7 +123,7 @@ function App() {
                     response.status,
                     errorMessage
                 );
-                console.log("RESPONSE: " , response)
+                console.log("RESPONSE: ", response);
             }
         } catch (error) {
             console.error(
@@ -162,7 +159,7 @@ function App() {
             <img
                 className="img"
                 src="/pexels.jpg"
-                alt="Description of the image"
+                alt="girl reading"
             />
             <div className="blank-space2"></div>
             <div className="container2">
@@ -181,18 +178,17 @@ function App() {
                 <div className="want-to-read">
                     <h3 className="title-want-to-read">WANT TO READ</h3>
                     <div id="want-to-read-list">
-                        <table className="table table-striped">
+                        <table className="custom-table">
                             <thead>
                                 <tr>
                                     <th>TITLE</th>
-                                    <th>ID</th>
-                                    <th>DELETE</th>
+                                    <th style={{ width: "100px" }}>DELETE</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {isLoadingReadList ? (
                                     <tr>
-                                        <td colSpan="3">
+                                        <td colSpan="2">
                                             Loading want to read list data...
                                         </td>
                                     </tr>
@@ -204,7 +200,6 @@ function App() {
                                                 (item) => (
                                                     <tr key={item.id}>
                                                         <td>{item.title}</td>
-                                                        <td>{item.id}</td>
                                                         <td>
                                                             <button
                                                                 onClick={() =>
@@ -223,15 +218,17 @@ function App() {
                                         </>
                                     ) : (
                                         <tr>
-                                            <td colSpan="3">
-                                                No books in your want to read
-                                                list. Add books to your list.
+                                            <td colSpan="2">
+                                                There are no books in your want
+                                                to read list. Find books to add
+                                                to your want to read list using
+                                                the search bar.
                                             </td>
                                         </tr>
                                     )
                                 ) : (
                                     <tr>
-                                        <td colSpan="3">
+                                        <td colSpan="2">
                                             LOGIN OR SIGNUP TO START CREATING A
                                             WANT TO READ LIST
                                         </td>
@@ -245,12 +242,11 @@ function App() {
                 <div className="read">
                     <h3 className="title-read">READ</h3>
                     <div id="read-list">
-                        <table className="table table-striped">
+                        <table className="custom-table">
                             <thead>
                                 <tr>
                                     <th>TITLE</th>
-                                    <th>ID</th>
-                                    <th>DELETE</th>
+                                    <th style={{ width: "100px" }}>DELETE</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -261,13 +257,12 @@ function App() {
                                         </td>
                                     </tr>
                                 ) : readList ? (
-                                    readList.books_read &&
+                                    readList &&
                                     readList.books_read.length > 0 ? (
                                         <>
                                             {readList.books_read.map((item) => (
                                                 <tr key={item.id}>
                                                     <td>{item.title}</td>
-                                                    <td>{item.id}</td>
                                                     <td>
                                                         <button
                                                             onClick={() =>
@@ -286,8 +281,9 @@ function App() {
                                     ) : (
                                         <tr>
                                             <td colSpan="3">
-                                                No books in your read list. Add
-                                                books to your list.
+                                                There are no books in your read
+                                                list. Find books to add to your
+                                                read list using the search bar.
                                             </td>
                                         </tr>
                                     )

@@ -35,7 +35,7 @@ body {
 }
 
 .logout-button:hover {
-    background-color: #fff;
+    background-color: #c4d338;
 }
 
 .logout-button:active {
@@ -69,5 +69,5 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    height: 12vh; 
+    height: 12vh;
 }
